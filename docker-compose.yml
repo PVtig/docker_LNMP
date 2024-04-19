@@ -1,0 +1,28 @@
+version: '3'
+services:
+  php:
+    build:
+      context: ./docker/php
+    volumes:
+      - './src:/var/www/html'
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - './src:/var/www/html'
+      - './docker/nginx/conf.d:/etc/nginx/conf.d'
+
+  db:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
