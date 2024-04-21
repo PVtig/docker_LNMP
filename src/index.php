@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 header('Access-Control-Allow-Origin: *');
 header('Content-type: json/application');
 header('Access-Control-Allow-Headers: *');
@@ -15,32 +12,14 @@ require_once './sqlQeries.php';
 require './functions.php';
 require './classes.php';
 
-
-// $statement = $pdo->query('SELECT * FROM cars');
-// $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-// $json = json_encode($result);
-// print_r($json); 
-
 $method = $_SERVER['REQUEST_METHOD'];
 $get = $_SERVER['REQUEST_URI'];
 $params = explode('/', $get);
 
-$type;
-$id;
-$update;
+$type = (isset($params[1])) ?  $params[1] : NULL;
+$id = (isset($params[2])) ? $params[2] : NULL;
+$update = (isset($params[3])) ? $params[3] : NULL;
 
-if (isset($params[1])) {
-    $type = $params[1];
-    print_r($type);
-} 
-if (isset($params[2])) {
-    $id = $params[2];
-    print_r($id);
-} 
-if (isset($params[3])) {
-    $update = $params[3];
-    print_r($update);
-} 
 $class = new Crud();
 
 

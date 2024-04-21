@@ -36,7 +36,7 @@ function getPost($pdo, $id, $variable)
     }
 
     /* Post number transmission */
-    $statement->execute(array($id['id']));
+    $statement->execute(array($id));
 
     /* Retrieving and Translating Result Set Rows */
     $result = $statement->fetch(PDO::FETCH_ASSOC);
@@ -49,12 +49,12 @@ function getPost($pdo, $id, $variable)
 
 function addPost($pdo, $data, $variable)
 {
-
-    $name = $data['name'];
-    $description = $data['description'];
-    $surname = $data['surname'];
-    $carName = $data['carName'];
-    $users_id = $data['users_id'];
+    $name = (isset($data['name'])) ?  $data['name'] : NULL;
+    $surname = ($data['surname']) ? $data['surname'] : NULL;
+    $salary = (isset($data['salary'])) ? $data['salary'] : NULL;
+    $number = (isset($data['number'])) ?  $data['number'] : NULL;
+    $type = (isset($data['type'])) ? $data['type'] : NULL;
+    $mileage = (isset($data['mileage'])) ? $data['mileage'] : NULL;
 
     /* Choice where we knock */
     if ($variable == "user") {
@@ -62,13 +62,14 @@ function addPost($pdo, $data, $variable)
         $res = $stmt->execute(array(
             ':name' => $name,
             ':surname' => $surname,
-            ':description' => $description
+            ':salary' => $salary
         ));
     } else if ($variable == "car") {
         $statement = $pdo->prepare(SQL_INSERT_CAR);
         $res = $statement->execute(array(
-            ':users_id' => $users_id,
-            ':carName' => $carName
+            ':number' => $number,
+            ':type' => $type,
+            ':mileage' => $mileage
         ));
     } else {
         echo ('eror type');
@@ -76,10 +77,8 @@ function addPost($pdo, $data, $variable)
     var_dump($res);
 }
 
-
 /* Post delete function 
         (Connect, post ID, post type) */
-
 function deletePost($pdo, $id, $variable)
 {
 
@@ -91,20 +90,23 @@ function deletePost($pdo, $id, $variable)
     } else {
         echo ('eror type');
     }
-    $statement->execute(array($id['id']));
+    $statement->execute(array($id));
 }
 
 
-/*   Post update function 
-    (Connect, post ID, data array, post type) */
-
+/**
+ * Post update function 
+ * (Connect, post ID, data array, post type)
+ * 
+ */
 function updatePost($pdo, $id, $data, $variable)
 {
-    $name = $data['name'];
-    $description = $data['description'];
-    $surname = $data['surname'];
-    $carName = $data['carName'];
-    $users_id = $data['users_id'];
+    $name = (isset($data['name'])) ?  $data['name'] : NULL;
+    $surname = ($data['surname']) ? $data['surname'] : NULL;
+    $salary = (isset($data['salary'])) ? $data['salary'] : NULL;
+    $number = (isset($data['number'])) ?  $data['number'] : NULL;
+    $type = (isset($data['type'])) ? $data['type'] : NULL;
+    $mileage = (isset($data['mileage'])) ? $data['mileage'] : NULL;
 
 
     if ($variable == "user") {
@@ -112,14 +114,15 @@ function updatePost($pdo, $id, $data, $variable)
         $res = $stmt->execute(array(
             ':name' => $name,
             ':surname' => $surname,
-            ':description' => $description,
+            ':salary' => $salary,
             ':id' => $id
         ));
     } else if ($variable == "car") {
         $statement = $pdo->prepare(SQL_UPDATE_CAR_BY_ID);
         $res = $statement->execute(array(
-            ':users_id' => $users_id,
-            ':carName' => $carName,
+            ':number' => $number,
+            ':type' => $type,
+            ':mileage' => $mileage,
             ':id' => $id
         ));
     } else {

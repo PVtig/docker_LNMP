@@ -5,6 +5,7 @@ docker-compose up -d
 
 // остановка 
 docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
 
 //вход в контейнер бд 
 docker exec -it <mysql-container-id> mariadb -p

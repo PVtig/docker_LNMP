@@ -1,6 +1,6 @@
 <?php
 
-$host = 'garage_lemp_docker_db_1';
+$host = 'docker_lnmp_db_1';
 $db   = 'garage';
 $user = 'root';
 $pass = 'root';
