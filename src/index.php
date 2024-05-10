@@ -8,7 +8,10 @@ header('Access-Control-Allow-Methods: PUT');
 header('Access-Control-Allow-Credentials: true');
 
 require_once './conect.php';
-require_once './sqlQeries.php';
+require_once './sqlUserQeries.php';
+require_once './sqlCarQeries.php';
+require_once './sqlReportsQeries.php';
+require_once './sqlGarageQeries.php';
 require './functions.php';
 require './classes.php';
 
