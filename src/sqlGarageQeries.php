@@ -12,8 +12,8 @@ const SQL_INSERT_GARAGE = '
     INSERT INTO garage ( number, capacity, manager_id, type) VALUES (:number, :capacity, :manager_id, :type)
 ';
 
-const SQL_DELETE_USER = '
-DELETE FROM garage WHERE users . id = ?
+const SQL_DELETE_GARAGE = '
+DELETE FROM garage WHERE garage . id = ?
 ';
 
 // const SQL_ID_LAST = '
