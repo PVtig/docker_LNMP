@@ -9,7 +9,7 @@ const SQL_GET_USER = '
 ';
 
 const SQL_INSERT_USER = '
-    INSERT INTO users ( name, surname, salary, car_id) VALUES (:name, :surname, :salary, :car_id)
+    INSERT INTO users ( name, surname, salary, type) VALUES (:name, :surname, :salary, :type)
 ';
 
 const SQL_DELETE_USER = '

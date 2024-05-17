@@ -64,63 +64,66 @@ function getPost($pdo, $id, $variable)
 /* Post add function 
     (Connection, data array, post type) */
 
-// function addPost($pdo, $data, $variable)
-// {
-//     $name = (isset($data['name'])) ?  $data['name'] : NULL;
-//     $surname = ($data['surname']) ? $data['surname'] : NULL;
-//     $salary = (isset($data['salary'])) ? $data['salary'] : NULL;
-//     $number = (isset($data['number'])) ?  $data['number'] : NULL;
-//     $type = (isset($data['type'])) ? $data['type'] : NULL;
-//     $mileage = (isset($data['mileage'])) ? $data['mileage'] : NULL;
-//     $car_id = (isset($data['car_id'])) ? $data['car_id'] : NULL;
-//     $user_id = (isset($data['user_id'])) ? $data['user_id'] : NULL;
-//     $capacity = (isset($data['capacity'])) ? $data['capacity'] : NULL;
-//     $manager_id = (isset($data['manager_id'])) ? $data['manager_id'] : NULL;
+function addPost($pdo, $data, $variable)
+{
+    $name = (isset($data['name'])) ?  $data['name'] : NULL;
+    $surname = (isset($data['surname'])) ?  $data['surname'] : NULL;
+    $salary = (isset($data['salary'])) ? $data['salary'] : NULL;
+    $number = (isset($data['number'])) ?  $data['number'] : NULL;
+    $type = (isset($data['type'])) ? $data['type'] : NULL;
+    $mileage = (isset($data['mileage'])) ? $data['mileage'] : NULL;
+    $car_id = (isset($data['car_id'])) ? $data['car_id'] : NULL;
+    $user_id = (isset($data['user_id'])) ? $data['user_id'] : NULL;
+    $capacity = (isset($data['capacity'])) ? $data['capacity'] : NULL;
+    $manager_id = (isset($data['manager_id'])) ? $data['manager_id'] : NULL;
+    $garage_id = (isset($data['garage_id'])) ? $data['garage_id'] : NULL;
 
 //     /* Choice where we knock */
-//     switch ($variable) {
-//         case 'user':
-//             $stmt = $pdo->prepare(SQL_INSERT_USER);
-//             $res = $stmt->execute(array(
-//                 ':name' => $name,
-//                 ':surname' => $surname,
-//                 ':salary' => $salary
-//             ));
-//             break;
-//         case 'car':
-//             $statement = $pdo->prepare(SQL_INSERT_CAR);
-//             $res = $statement->execute(array(
-//                 ':number' => $number,
-//                 ':type' => $type,
-//                 ':mileage' => $mileage
-//             ));
-//             break;
-//         case 'report':
-//             $statement = $pdo->prepare(SQL_INSERT_REPORT);
-//             $res = $statement->execute(array(
-//                 ':number' => $number,
-//                 ':type' => $type,
-//                 ':mileage' => $mileage
-//                 ':car_id' => $car_id
-//                 ':user_id' => $user_id
-//             ));
-//             break;
-//         case 'garage':
-//             $statement = $pdo->prepare(SQL_INSERT_GARAGE);
-//             $res = $statement->execute(array(
-//                 ':number' => $number,
-//                 ':capacity' => $capacity
-//                 ':manager_id' => $manager_id
-//                 ':type' => $type,
-//             ));
-//             break;
+    switch ($variable) {
+        case 'user':
+            $stmt = $pdo->prepare(SQL_INSERT_USER);
+            $res = $stmt->execute(array(
+                ':name' => $name,
+                ':surname' => $surname,
+                ':salary' => $salary,
+                ':type' => $type
+            ));
+            break;
+        case 'car':
+            $statement = $pdo->prepare(SQL_INSERT_CAR);
+            $res = $statement->execute(array(
+                ':number' => $number,
+                ':type' => $type,
+                ':mileage' => $mileage,
+                ':garage_id' => $garage_id
+            ));
+            break;
+        case 'report':
+            $statement = $pdo->prepare(SQL_INSERT_REPORT);
+            $res = $statement->execute(array(
+                ':number' => $number,
+                ':type' => $type,
+                ':mileage' => $mileage,
+                ':car_id' => $car_id,
+                ':user_id' => $user_id
+            ));
+            break;
+        case 'garage':
+            $statement = $pdo->prepare(SQL_INSERT_GARAGE);
+            $res = $statement->execute(array(
+                ':number' => $number,
+                ':capacity' => $capacity,
+                ':manager_id' => $manager_id,
+                ':type' => $type
+            ));
+            break;
         
-//         default: 
-//             echo ('eror type');
-//             break;
-//     }
-//     var_dump($res);
-// }
+        default: 
+            echo ('eror type');
+            break;
+    }
+    var_dump($res);
+}
 
 /* Post delete function 
         (Connect, post ID, post type) */
