@@ -69,6 +69,8 @@ function addPost($pdo, $data, $variable)
     $name = (isset($data['name'])) ?  $data['name'] : NULL;
     $surname = (isset($data['surname'])) ?  $data['surname'] : NULL;
     $salary = (isset($data['salary'])) ? $data['salary'] : NULL;
+    $phone = (isset($data['phone'])) ? $data['phone'] : NULL;
+    $email = (isset($data['email'])) ? $data['email'] : NULL;
     $number = (isset($data['number'])) ?  $data['number'] : NULL;
     $type = (isset($data['type'])) ? $data['type'] : NULL;
     $mileage = (isset($data['mileage'])) ? $data['mileage'] : NULL;
@@ -79,12 +81,15 @@ function addPost($pdo, $data, $variable)
     $garage_id = (isset($data['garage_id'])) ? $data['garage_id'] : NULL;
 
 //     /* Choice where we knock */
+try {
     switch ($variable) {
         case 'user':
             $stmt = $pdo->prepare(SQL_INSERT_USER);
             $res = $stmt->execute(array(
                 ':name' => $name,
                 ':surname' => $surname,
+                ':phone' => $phone,
+                ':email' => $email,
                 ':salary' => $salary,
                 ':type' => $type
             ));
@@ -101,12 +106,13 @@ function addPost($pdo, $data, $variable)
         case 'report':
             $statement = $pdo->prepare(SQL_INSERT_REPORT);
             $res = $statement->execute(array(
-                ':number' => $number,
                 ':type' => $type,
                 ':mileage' => $mileage,
+                ':garage' => $garage_id,
                 ':car_id' => $car_id,
                 ':user_id' => $user_id
-            ));
+            )
+            );
             break;
         case 'garage':
             $statement = $pdo->prepare(SQL_INSERT_GARAGE);
@@ -119,9 +125,12 @@ function addPost($pdo, $data, $variable)
             break;
         
         default: 
-            echo ('eror type');
+            echo ('eror type dont valid');
             break;
     }
+} catch (PDOExeption $exception) {
+    echo "$exception->getMessege";
+}
     var_dump($res);
 }
 
