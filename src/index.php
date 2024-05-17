@@ -41,7 +41,7 @@ try {
             if ($update == 'update') {
                 $class->update($pdo, $id, $_POST, $type);
             } else {
-                $class->add($pdo, $data, $type);
+                $class->add($pdo, $_POST, $type);
             }
             break;
 

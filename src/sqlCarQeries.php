@@ -9,7 +9,7 @@ const SQL_GET_CAR = '
 ';
 
 const SQL_INSERT_CAR = '
-    INSERT INTO cars ( id, number, type, mileage) VALUES (:id, :number, :type, :mileage)
+    INSERT INTO cars ( id, number, type, mileage, garage_id) VALUES (:id, :number, :type, :mileage, :garage_id)
 ';
 
 const SQL_DELETE_CAR = '
