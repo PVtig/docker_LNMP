@@ -106,9 +106,9 @@ try {
         case 'report':
             $statement = $pdo->prepare(SQL_INSERT_REPORT);
             $res = $statement->execute(array(
+                ':number' => $number,
                 ':type' => $type,
                 ':mileage' => $mileage,
-                ':garage' => $garage_id,
                 ':car_id' => $car_id,
                 ':user_id' => $user_id
             )
@@ -128,8 +128,8 @@ try {
             echo ('eror type dont valid');
             break;
     }
-} catch (PDOExeption $exception) {
-    echo "$exception->getMessege";
+} catch (PDOException $exception) {
+    echo $exception->getMessage();
 }
     var_dump($res);
 }
