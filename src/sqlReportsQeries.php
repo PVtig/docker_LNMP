@@ -9,7 +9,7 @@ const SQL_GET_REPORT = '
 ';
 
 const SQL_INSERT_REPORT = '
-    INSERT INTO reports ( type, mileage, garage, car_id, user_id) VALUES (:type, :mileage, :garage, :car_id, :user_id)
+    INSERT INTO reports ( number, type, mileage, car_id, user_id) VALUES (:number, :type, :mileage, :car_id, :user_id)
 ';
 
 const SQL_DELETE_REPORT = '
