@@ -73,6 +73,7 @@ function addPost($pdo, $data, $variable)
     $email = (isset($data['email'])) ? $data['email'] : NULL;
     $number = (isset($data['number'])) ?  $data['number'] : NULL;
     $type = (isset($data['type'])) ? $data['type'] : NULL;
+    $status = (isset($data['status'])) ? $data['status'] : NULL;
     $mileage = (isset($data['mileage'])) ? $data['mileage'] : NULL;
     $car_id = (isset($data['car_id'])) ? $data['car_id'] : NULL;
     $user_id = (isset($data['user_id'])) ? $data['user_id'] : NULL;
@@ -100,7 +101,8 @@ try {
                 ':number' => $number,
                 ':type' => $type,
                 ':mileage' => $mileage,
-                ':garage_id' => $garage_id
+                ':garage_id' => $garage_id,
+                ':status' => $status
             ));
             break;
         case 'report':
@@ -128,10 +130,10 @@ try {
             echo ('eror type dont valid');
             break;
     }
+    var_dump($res);
 } catch (PDOException $exception) {
     echo $exception->getMessage();
 }
-    var_dump($res);
 }
 
 /* Post delete function 
