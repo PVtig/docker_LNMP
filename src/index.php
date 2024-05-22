@@ -55,13 +55,5 @@ try {
             break;
     }
 } catch (PDOException $e) {
-    print_r('rtrt'); 
     exit($e->getMessage());
 }
-
-// declare(strict_types=1);
-
-// phpinfo();
-
-// echo "Hello World";
-

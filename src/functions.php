@@ -19,6 +19,9 @@ function getPosts($pdo, $type)
         case 'garage':
             $statement = $pdo->query(SQL_GET_GARAGES);
             break;
+        case 'event':
+            $statement = $pdo->query(SQL_GET_EVENTS);
+            break;
         default:  
             echo ('eror type');
             break;
@@ -46,6 +49,9 @@ function getPost($pdo, $id, $variable)
             break;
         case 'garage':
             $statement = $pdo->prepare(SQL_GET_GARAGE);
+            break;
+        case 'event':
+            $statement = $pdo->prepare(SQL_GET_EVENT);
             break;
         default: 
             echo ('eror type');
@@ -80,6 +86,9 @@ function addPost($pdo, $data, $variable)
     $capacity = (isset($data['capacity'])) ? $data['capacity'] : NULL;
     $manager_id = (isset($data['manager_id'])) ? $data['manager_id'] : NULL;
     $garage_id = (isset($data['garage_id'])) ? $data['garage_id'] : NULL;
+    $title = (isset($data['title'])) ?  $data['title'] : NULL;
+    $description = (isset($data['description'])) ?  $data['description'] : NULL;
+    $date = (isset($data['date'])) ?  $data['date'] : NULL;
 
 //     /* Choice where we knock */
 try {
@@ -126,6 +135,14 @@ try {
             ));
             break;
         
+        case 'event':
+            $statement = $pdo->prepare(SQL_INSERT_EVENT);
+            $res = $statement->execute(array(
+                ':title' => $title,
+                ':description' => $description,
+                ':date' => $date
+            ));
+            break;
         default: 
             echo ('eror type dont valid');
             break;
