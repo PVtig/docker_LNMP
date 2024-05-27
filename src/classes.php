@@ -1,6 +1,6 @@
 <?php
 
-class Crud
+class Crud implements CRUD
 {
     /* Fetch from DB accepts 
     (Connection, post type, ID) */
