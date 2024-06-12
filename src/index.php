@@ -12,7 +12,7 @@ require_once './sqlUserQeries.php';
 require_once './sqlCarQeries.php';
 require_once './sqlReportsQeries.php';
 require_once './sqlGarageQeries.php';
-require_once './CRUD.php'
+require_once './CRUD.php';
 require './functions.php';
 require './classes.php';
 

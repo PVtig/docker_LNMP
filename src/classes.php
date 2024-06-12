@@ -1,12 +1,10 @@
 <?php
 
-class Crud implements CRUD
-{
+class Crud implements Test{
+    
     /* Fetch from DB accepts 
     (Connection, post type, ID) */
-
-    public function get($pdo, $type, $id)
-    {
+	public function get($pdo, $type, $id){
         if (isset($id)) {
             getPost($pdo, $id, $type);
         } else {
@@ -18,8 +16,7 @@ class Crud implements CRUD
     /* DB add  
     (Connection, data array, post type) */
 
-    public function add($pdo, $data, $type)
-    {
+	public function add($pdo, $data, $type){
         addPost($pdo, $data, $type);
         $mes = [
             "status" => true,
@@ -28,12 +25,9 @@ class Crud implements CRUD
         print_r(json_encode($mes));
     }
 
-
     /* DB delete
     (Connection, post id, post type) */
-
-    function delete($pdo, $id, $type)
-    {
+	public function delete($pdo, $id, $type){
         deletePost($pdo, $id, $type);
         http_response_code(200);
         $mes = [
@@ -43,13 +37,9 @@ class Crud implements CRUD
         print_r(json_encode($mes));
     }
 
-
-    /* DB delete
+    /* DB update
     (Connection, post id, post type) */
-
-    function update($pdo, $id, $data, $type)
-    {
-
+	public function update($pdo, $id, $data, $type){
         updatePost($pdo, $id, $data, $type);
         http_response_code(200);
         $mes = [
@@ -57,5 +47,6 @@ class Crud implements CRUD
             "message" => "Post '$type' '$id' is update"
         ];
         print_r(json_encode($mes));
+        
     }
 }
