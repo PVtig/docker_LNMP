@@ -13,6 +13,7 @@ require_once './SQLQeries/sqlCarQeries.php';
 require_once './SQLQeries/sqlReportsQeries.php';
 require_once './SQLQeries/sqlGarageQeries.php';
 require './functions.php';
+require './CRUD.php';
 require './classes.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
