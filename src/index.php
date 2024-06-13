@@ -14,7 +14,7 @@ require_once './SQLQeries/sqlReportsQeries.php';
 require_once './SQLQeries/sqlGarageQeries.php';
 require './functions.php';
 require './CRUD.php';
-require './classes.php';
+require './ClassComposer.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 $get = $_SERVER['REQUEST_URI'];
@@ -24,7 +24,7 @@ $type = (isset($params[1])) ?  $params[1] : NULL;
 $id = (isset($params[2])) ? $params[2] : NULL;
 $update = (isset($params[3])) ? $params[3] : NULL;
 
-$class = new Crud();
+$class = new ClassComposer();
 
 
 /* Basic 'try' 'PDO' filling its choice of logic 

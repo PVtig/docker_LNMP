@@ -1,6 +1,6 @@
 <?php
 
-class Crud implements Test{
+class ClassComposer implements CRUD{
     
     /**
      * 

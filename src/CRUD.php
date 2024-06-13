@@ -1,6 +1,6 @@
 <?php
 
-interface Test{
+interface CRUD{
   public function get($pdo, $type, $id);
   public function add($pdo, $data, $type);
   public function delete($pdo, $id, $type);
