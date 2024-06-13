@@ -2,8 +2,16 @@
 
 class Crud implements Test{
     
-    /* Fetch from DB accepts 
-    (Connection, post type, ID) */
+    /**
+     * 
+     * Fetch from DB accepts 
+     * 
+     * @param $pdo Connecting to the database
+     * @param $type Name of the entity type in the database
+     * @param $id Post ID in the table
+     * 
+     * @return json
+     */
   public function get($pdo, $type, $id){
         if (isset($id)) {
             getPost($pdo, $id, $type);
@@ -12,10 +20,15 @@ class Crud implements Test{
         }
     }
 
-
-    /* DB add  
-    (Connection, data array, post type) */
-
+    /**
+     * Fetch from DB accepts 
+     * 
+     * @param $pdo Connecting to the database
+     * @param $data Data for creating a post
+     * @param $type Name of the entity type in the database
+     * 
+     * @return json
+     */
   public function add($pdo, $data, $type){
         addPost($pdo, $data, $type);
         $mes = [
@@ -25,8 +38,15 @@ class Crud implements Test{
         print_r(json_encode($mes));
     }
 
-    /* DB delete
-    (Connection, post id, post type) */
+    /**
+     * Past delete 
+     * 
+     * @param $pdo Connecting to the database
+     * @param $id Post ID in the table
+     * @param $type Name of the entity type in the database
+     * 
+     * @return json
+     */
   public function delete($pdo, $id, $type){
         deletePost($pdo, $id, $type);
         http_response_code(200);
@@ -37,8 +57,16 @@ class Crud implements Test{
         print_r(json_encode($mes));
     }
 
-    /* DB update
-    (Connection, post id, post type) */
+    /**
+     * Post update
+     * 
+     * @param $pdo Connecting to the database
+     * @param $id Post ID in the table
+     * @param $data Data for replacement 
+     * @param $type Name of the entity type in the database
+     * 
+     * @return json
+     */
   public function update($pdo, $id, $data, $type){
         updatePost($pdo, $id, $data, $type);
         http_response_code(200);
