@@ -1,5 +1,10 @@
 <?php
 
+namespace factory;
+
+use MainComposer;
+use PDOException;
+
 header('Access-Control-Allow-Origin: *');
 header('Content-type: json/application');
 header('Access-Control-Allow-Headers: *');
@@ -12,9 +17,12 @@ require_once './SQLQeries/sqlUserQeries.php';
 require_once './SQLQeries/sqlCarQeries.php';
 require_once './SQLQeries/sqlReportsQeries.php';
 require_once './SQLQeries/sqlGarageQeries.php';
-require './functions.php';
-require './CRUD.php';
 require './ClassComposer.php';
+
+spl_autoload_register(function ($className) {
+	$className = str_replace("..", "", $className);
+	require_once("./factory/$className.php");
+});
 
 $method = $_SERVER['REQUEST_METHOD'];
 $get = $_SERVER['REQUEST_URI'];
@@ -24,33 +32,20 @@ $type = (isset($params[1])) ?  $params[1] : NULL;
 $id = (isset($params[2])) ? $params[2] : NULL;
 $update = (isset($params[3])) ? $params[3] : NULL;
 
-$class = new ClassComposer();
-
-
-/* Basic 'try' 'PDO' filling its choice of logic 
-    depending on the type of method */
+$factory = new MainComposer;
+$class = $factory->getClass($type);
+   
 try {
-    
     switch ($method) {
         case 'GET':
-            
-            $class->get($pdo, $type, $id);
-            break;
-
+            (isset($id)) ? $class->getPost($pdo, $id) : $class->getPosts($pdo);
+			break;
         case 'POST':
-
-            if ($update == 'update') {
-                $class->update($pdo, $id, $_POST, $type);
-            } else {
-                $class->add($pdo, $_POST, $type);
-            }
+            ($update == 'update') ? $class->updatePost($pdo, $id, $_POST) : $class->addPost($pdo, $_POST);
             break;
-
         case 'DELETE':
-
-            $class->delete($pdo, $id, $type);
+            $class->deletePost($pdo, $id);
             break;
-
         default:
             echo 'error';
             break;
