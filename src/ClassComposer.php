@@ -1,6 +1,6 @@
 <?php
 
-class ClassComposer implements CRUD{
+class ClassComposer {
     
     /**
      * 
