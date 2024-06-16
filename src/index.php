@@ -35,21 +35,21 @@ $update = (isset($params[3])) ? $params[3] : NULL;
 $factory = new MainComposer;
 $class = $factory->getClass($type);
    
-        try {
-            switch ($method) {
-                case 'GET':
-                    (isset($id)) ? $class->getPost($pdo, $id) : $class->getPosts($pdo);
-			        break;
-                case 'POST':
-                    ($update == 'update') ? $class->updatePost($pdo, $id, $_POST) : $class->addPost($pdo, $_POST);
-                    break;
-                case 'DELETE':
-                    $class->deletePost($pdo, $id);
-                    break;
-                default:
-                    echo 'error';
-                    break;
-            }
-        } catch (PDOException $e) {
-            exit($e->getMessage());
-        }
+try {
+    switch ($method) {
+        case 'GET':
+            (isset($id)) ? $class->getPost($pdo, $id) : $class->getPosts($pdo);
+			break;
+        case 'POST':
+            ($update == 'update') ? $class->updatePost($pdo, $id, $_POST) : $class->addPost($pdo, $_POST);
+            break;
+        case 'DELETE':
+            $class->deletePost($pdo, $id);
+            break;
+        default:
+            echo 'error';
+            break;
+    }
+} catch (PDOException $e) {
+    exit($e->getMessage());
+}
