@@ -1,6 +1,6 @@
 <?php
 
-class EventPostsComposer implements CRUDInterface
+final class EventPostsComposer implements CRUDInterface
 {
   /**
    * getPosts for Select all events
