@@ -17,7 +17,6 @@ require_once './SQLQeries/sqlUserQeries.php';
 require_once './SQLQeries/sqlCarQeries.php';
 require_once './SQLQeries/sqlReportsQeries.php';
 require_once './SQLQeries/sqlGarageQeries.php';
-require './ClassComposer.php';
 
 spl_autoload_register(function ($className) {
 	$className = str_replace("..", "", $className);
@@ -32,8 +31,7 @@ $type = (isset($params[1])) ?  $params[1] : NULL;
 $id = (isset($params[2])) ? $params[2] : NULL;
 $update = (isset($params[3])) ? $params[3] : NULL;
 
-$factory = new MainComposer;
-$class = $factory->getClass($type);
+$class = MainComposer::getClass($type);
    
 try {
     switch ($method) {
