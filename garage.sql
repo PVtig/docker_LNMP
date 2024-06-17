@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: db
--- Время создания: Май 11 2024 г., 20:01
+-- Время создания: Июн 17 2024 г., 20:33
 -- Версия сервера: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- Версия PHP: 8.2.18
 
@@ -32,16 +32,32 @@ CREATE TABLE `cars` (
   `number` int(11) NOT NULL,
   `type` int(11) NOT NULL,
   `mileage` int(11) NOT NULL,
-  `garage_id` int(11) NOT NULL
+  `garage_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `cars`
 --
 
-INSERT INTO `cars` (`id`, `number`, `type`, `mileage`, `garage_id`) VALUES
-(5, 1249, 1, 123903, 1),
-(6, 3245, 4, 135604, 2);
+INSERT INTO `cars` (`id`, `number`, `type`, `mileage`, `garage_id`, `status`) VALUES
+(5, 1249, 1, 123903, 1, 1),
+(6, 3245, 4, 135604, 2, 1),
+(7, 4456, 5, 50000, 1, 1),
+(8, 4532, 5, 50000, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `events`
+--
+
+CREATE TABLE `events` (
+  `id` int(11) NOT NULL,
+  `title` varchar(30) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -113,12 +129,41 @@ INSERT INTO `gas` (`id`, `name`, `Octane`, `diskription`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `invoices`
+--
+
+CREATE TABLE `invoices` (
+  `id` int(11) NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `phone` varchar(13) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `cost` int(11) NOT NULL,
+  `Date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `invoices`
+--
+
+INSERT INTO `invoices` (`id`, `name`, `phone`, `email`, `cost`, `Date`) VALUES
+(1, 'Jon Snow', '(665)121-5454', 'jonsnow@gmail.com', 2100, '2022-03-12'),
+(2, 'Cersei Lannister', '(421)314-2288', 'cerseilannister@gmail.com', 1417, '2021-06-15'),
+(3, 'Jaime Lannister', '(422)982-6739', 'jaimelannister@gmail.com', 1189, '2022-05-02'),
+(4, 'Anya Stark', '(921)425-6742', 'anyastark@gmail.com', 8074, '2022-03-21'),
+(5, 'Daenerys Targaryen', '(421)445-1189', 'daenerystargaryen@gmail.com', 1589, '2021-01-12'),
+(6, 'Ever Melisandre', '(232)545-6483', 'evermelisandre@gmail.com', 6332, '2022-11-02'),
+(7, 'Ferrara Clifford', '(543)124-0123', 'ferraraclifford@gmail.com', 5286, '2022-02-11'),
+(8, 'Rossini Frances', '(222)444-5555', 'rossinifrances@gmail.com', 2123, '2021-05-02');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `reports`
 --
 
 CREATE TABLE `reports` (
   `id` int(11) NOT NULL,
-  `namber` int(11) NOT NULL,
+  `number` int(11) NOT NULL,
   `type` int(11) NOT NULL,
   `mileage` int(11) NOT NULL,
   `car_id` int(11) NOT NULL,
@@ -129,8 +174,45 @@ CREATE TABLE `reports` (
 -- Дамп данных таблицы `reports`
 --
 
-INSERT INTO `reports` (`id`, `namber`, `type`, `mileage`, `car_id`, `user_id`) VALUES
-(4, 1, 3, 123903, 5, 2);
+INSERT INTO `reports` (`id`, `number`, `type`, `mileage`, `car_id`, `user_id`) VALUES
+(4, 1, 3, 123903, 5, 2),
+(5, 2, 3, 138987, 5, 2),
+(6, 3, 3, 158987, 5, 2),
+(7, 5, 3, 155555, 5, 2),
+(8, 6, 3, 65000, 7, 15),
+(11, 7, 3, 80000, 7, 15),
+(13, 8, 3, 95000, 7, 2),
+(14, 9, 3, 110000, 7, 2),
+(15, 10, 3, 125000, 7, 2),
+(16, 11, 1, 125500, 7, 2),
+(18, 12, 1, 125700, 7, 2),
+(19, 13, 1, 125800, 7, 2),
+(20, 14, 1, 125850, 7, 2),
+(22, 15, 1, 125900, 7, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `status_car`
+--
+
+CREATE TABLE `status_car` (
+  `id` int(11) NOT NULL,
+  `title` varchar(30) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `status_car`
+--
+
+INSERT INTO `status_car` (`id`, `title`, `description`) VALUES
+(1, 'neu car', 'The car has a mileage of up to 150 thousand kilometers and is being run-in'),
+(2, 'used car', 'The car has a mileage of more than 150 thousand kilometers and is fully serviceable'),
+(3, 'needs maintenance', 'consumables require replacement in accordance with operating instructions'),
+(4, 'light repair needed', 'simple repairs or replacement of small components and assemblies are required'),
+(5, 'complex repairs required', 'Repairs require the use of sophisticated equipment or flaw detection. Repair is not impossible on your own'),
+(6, 'unsuitable for use', 'The car is not suitable for use and is awaiting write-off.');
 
 -- --------------------------------------------------------
 
@@ -149,7 +231,8 @@ CREATE TABLE `type_acsess` (
 --
 
 INSERT INTO `type_acsess` (`id`, `description`, `id_type_users`) VALUES
-(1, 'chenge oil', 2);
+(1, 'oil change required', 2),
+(2, 'the vehicle is suitable for use', 1);
 
 -- --------------------------------------------------------
 
@@ -213,7 +296,6 @@ CREATE TABLE `type_reports` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `recommendations` varchar(255) NOT NULL,
-  `mileage` int(11) NOT NULL,
   `access_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -221,8 +303,9 @@ CREATE TABLE `type_reports` (
 -- Дамп данных таблицы `type_reports`
 --
 
-INSERT INTO `type_reports` (`id`, `name`, `recommendations`, `mileage`, `access_id`) VALUES
-(3, 'chnge oil', 'chenge oil', 10000, 1);
+INSERT INTO `type_reports` (`id`, `name`, `recommendations`, `access_id`) VALUES
+(1, 'work shift', 'Inspect the general condition of the vehicle', 2),
+(3, 'chnge oil', 'chenge oil', 1);
 
 -- --------------------------------------------------------
 
@@ -254,6 +337,8 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
+  `phone` varchar(13) NOT NULL,
+  `email` varchar(30) NOT NULL,
   `salary` int(11) NOT NULL,
   `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -262,20 +347,22 @@ CREATE TABLE `users` (
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `surname`, `salary`, `type`) VALUES
-(1, 'Павел', 'Петров', 2000, 1),
-(2, 'Анатолий', 'Петров', 2400, 2),
-(3, 'Адриан', 'Смирнов', 2200, 1),
-(4, 'Аркадий', 'Иванов', 2100, 1),
-(5, 'Афанасий', 'Семенов', 2500, 1),
-(6, 'Василий', 'Михайлов', 2700, 1),
-(7, 'Виталий', 'Федоров', 3000, 2),
-(8, 'Всеволод', 'Андреев', 3100, 2),
-(9, 'Геннадий', 'Степанов', 3500, 1),
-(10, 'Глеб', 'Макаров', 2300, 1),
-(11, 'Вячеслав', 'Кузнецов', 2250, 1),
-(12, 'Гавриил', 'Попов', 2340, 2),
-(13, 'Владислав', 'Ковалев', 2540, 1);
+INSERT INTO `users` (`id`, `name`, `surname`, `phone`, `email`, `salary`, `type`) VALUES
+(1, 'Павел', 'Петров', '', '', 2000, 1),
+(2, 'Анатолий', 'Петров', '', '', 2400, 2),
+(3, 'Адриан', 'Смирнов', '', '', 2200, 1),
+(4, 'Аркадий', 'Иванов', '', '', 2100, 1),
+(5, 'Афанасий', 'Семенов', '', '', 2500, 1),
+(6, 'Василий', 'Михайлов', '', '', 2700, 1),
+(7, 'Виталий', 'Федоров', '', '', 3000, 2),
+(8, 'Всеволод', 'Андреев', '', '', 3100, 2),
+(9, 'Геннадий', 'Степанов', '', '', 3500, 1),
+(10, 'Глеб', 'Макаров', '', '', 2300, 1),
+(11, 'Вячеслав', 'Кузнецов', '', '', 2250, 1),
+(12, 'Гавриил', 'Попов', '', '', 2340, 2),
+(13, 'Владислав', 'Ковалев', '', '', 2540, 1),
+(14, 'Николай', 'Белозор', '', '', 3888, 2),
+(15, 'Афанасий', 'Степочкин', '+4901888628', 'afanasi@gmail.com', 3500, 2);
 
 --
 -- Индексы сохранённых таблиц
@@ -287,7 +374,8 @@ INSERT INTO `users` (`id`, `name`, `surname`, `salary`, `type`) VALUES
 ALTER TABLE `cars`
   ADD PRIMARY KEY (`id`),
   ADD KEY `type` (`type`),
-  ADD KEY `garage_id` (`garage_id`);
+  ADD KEY `garage_id` (`garage_id`),
+  ADD KEY `status` (`status`);
 
 --
 -- Индексы таблицы `fuel_vehicle`
@@ -311,14 +399,26 @@ ALTER TABLE `gas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `reports`
 --
 ALTER TABLE `reports`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `namber` (`namber`),
+  ADD UNIQUE KEY `namber` (`number`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `car_id` (`car_id`),
   ADD KEY `type` (`type`);
+
+--
+-- Индексы таблицы `status_car`
+--
+ALTER TABLE `status_car`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `type_acsess`
@@ -366,7 +466,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `fuel_vehicle`
@@ -387,16 +487,28 @@ ALTER TABLE `gas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT для таблицы `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT для таблицы `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT для таблицы `status_car`
+--
+ALTER TABLE `status_car`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `type_acsess`
 --
 ALTER TABLE `type_acsess`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `type_car`
@@ -426,7 +538,7 @@ ALTER TABLE `type_users`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -437,7 +549,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `cars`
   ADD CONSTRAINT `cars_ibfk_1` FOREIGN KEY (`type`) REFERENCES `type_car` (`id`),
-  ADD CONSTRAINT `cars_ibfk_2` FOREIGN KEY (`garage_id`) REFERENCES `garage` (`id`);
+  ADD CONSTRAINT `cars_ibfk_2` FOREIGN KEY (`garage_id`) REFERENCES `garage` (`id`),
+  ADD CONSTRAINT `cars_ibfk_3` FOREIGN KEY (`status`) REFERENCES `status_car` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `fuel_vehicle`
