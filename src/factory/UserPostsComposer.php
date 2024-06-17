@@ -1,6 +1,6 @@
 <?php
 
-class UserPostsComposer implements CRUDInterface
+final class UserPostsComposer implements CRUDInterface
 {
   /**
    * getPosts for Select all posts

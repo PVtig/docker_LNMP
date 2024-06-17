@@ -1,5 +1,5 @@
 <?
-	class MainComposer{
+	final class MainComposer{
 		public static function getClass($type): ?CRUDInterface{
 			$ClassName = ucfirst($type.'PostsComposer');
 			if(class_exists($ClassName)){

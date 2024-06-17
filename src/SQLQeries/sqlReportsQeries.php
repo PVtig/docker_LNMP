@@ -8,6 +8,10 @@ const SQL_GET_REPORT = '
     SELECT * FROM reports WHERE id = ?
 ';
 
+const SQL_GET_LAST_REPORT = '
+    SELECT * FROM reports WHERE id IN (SELECT MAX(id) FROM reports WHERE type = ? AND car_id = ?)
+';
+
 const SQL_INSERT_REPORT = '
     INSERT INTO reports ( number, type, mileage, car_id, user_id) VALUES (:number, :type, :mileage, :car_id, :user_id)
 ';
