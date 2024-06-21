@@ -3,16 +3,29 @@
 final class ReportPostsComposer extends AbstractReportPostsComposer implements CRUDInterface
 {
   protected function CheckingStatus($pdo, $data){
-    if ($data['type'] == 1) {
-      $statement = $pdo->prepare(SQL_GET_LAST_SERVICE_REPORT);
-      $statement->execute(array( 3 , $data['car_id']));
-      $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-      if (($result['mileage'] + 15000) < $data['mileage']) {
-        $this->addSistemReport($pdo, $data);
-      }
-
-      $this->chengedataCar($pdo, $data);
+    switch ($data) {
+      case $data['type'] == 1:
+        $statement = $pdo->prepare(SQL_GET_LAST_SERVICE_REPORT);
+        $statement->execute(array( 3 , $data['car_id']));
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+  
+        $this->chengeDataCar($pdo, $data);
+  
+        if (($result['mileage'] + 15000) < $data['mileage']) {
+          $this->addSistemReport($pdo, $data);
+        }
+        break;
+      case $data['type'] == 3:
+        $status = [ 
+          'car_id' => $data['car_id'],
+          "status" => 2 
+        ];
+        $this->chengeDataCar($pdo, $status);
+        break;
+      
+      default:
+        # code...
+        break;
     }
   }
   
@@ -23,8 +36,11 @@ final class ReportPostsComposer extends AbstractReportPostsComposer implements C
         $mileage = (isset($data['mileage'])) ? $data['mileage'] : NULL;
         $user_id = 0;
 
-        $data += [ "status" => 3 ];
-        $this->chengedataCar($pdo, $data);
+        $status = [ 
+          'car_id' => $car_id,
+          "status" => 3 
+        ];
+        $this->chengeDataCar($pdo, $status);
 
         $dataForAutoReport = [
           "number" => $number,
@@ -36,7 +52,7 @@ final class ReportPostsComposer extends AbstractReportPostsComposer implements C
         $this->addPost($pdo, $dataForAutoReport);
   }
 
-  function chengedataCar($pdo, $data){
+  function chengeDataCar($pdo, $data){
     switch ($data) {
       case isset($data['status']):
         $this->chengeStatus($pdo, $data);
