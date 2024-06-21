@@ -27,3 +27,17 @@ const SQL_UPDATE_CAR_BY_ID = '
     WHERE
         id = :id    
 ';
+
+const SQL_CHENGE_CAR_MILEAGE_BY_ID = '
+    UPDATE cars SET
+        mileage = :mileage
+    WHERE
+        id = :id    
+';
+
+const SQL_CHENGE_CAR_STATUS_BY_ID = '
+    UPDATE cars SET
+        status = :status
+    WHERE
+        id = :id    
+';
