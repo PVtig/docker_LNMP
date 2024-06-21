@@ -12,6 +12,7 @@ final class ReportPostsComposer extends AbstractReportPostsComposer implements C
         $this->addSistemReport($pdo, $data);
       }
 
+      $this->chengedataCar($pdo, $data);
     }
   }
   
@@ -22,6 +23,9 @@ final class ReportPostsComposer extends AbstractReportPostsComposer implements C
         $mileage = (isset($data['mileage'])) ? $data['mileage'] : NULL;
         $user_id = 0;
 
+        $data += [ "status" => 3 ];
+        $this->chengedataCar($pdo, $data);
+
         $dataForAutoReport = [
           "number" => $number,
           "type" => $type,
@@ -30,27 +34,41 @@ final class ReportPostsComposer extends AbstractReportPostsComposer implements C
           "user_id" => $user_id 
         ];
         $this->addPost($pdo, $dataForAutoReport);
-    
   }
 
-  function chengeParamCar($pdo, $data){
-    $statement = $pdo->prepare(SQL_GET_CAR);
-    $statement->execute(array($data['car_id']));
-    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-    print_r(json_encode($result));
+  function chengedataCar($pdo, $data){
+    switch ($data) {
+      case isset($data['status']):
+        $this->chengeStatus($pdo, $data);
+        break;
+      case isset($data['mileage']):
+       $this->chengeMileage($pdo, $data);
+       break;
+      default:
+        echo('Parameters do not require changes');
+        break;
+    }
+  }
 
-    $number = (isset($result['number'])) ?  $result['number'] : NULL;
-    $type = (isset($result['type'])) ? $result['type'] : NULL;
+  function chengeMileage($pdo, $data) {
+    $id = (isset($data['car_id'])) ? $data['car_id'] : NULL;
     $mileage = (isset($data['mileage'])) ? $data['mileage'] : NULL;
-    $garage_id = (isset($data['mileage'])) ? $data['mileage'] : NULL;
-    $status = (isset($data['mileage'])) ? $data['mileage'] : NULL;
-    $statement = $pdo->prepare(SQL_UPDATE_CAR_BY_ID);
 
+    $statement = $pdo->prepare(SQL_CHENGE_CAR_MILEAGE_BY_ID);
     $res = $statement->execute(array(
-      ':number' => $number,
-      ':type' => $type,
-      ':mileage' => $mileage,
-      ':garage_id' => $garage_id,
+      ':id' => $id,
+      ':mileage' => $mileage
+    ));
+    var_dump($res);
+  }
+
+  function chengeStatus($pdo, $data) {
+    $id = (isset($data['car_id'])) ? $data['car_id'] : NULL;
+    $status = (isset($data['status'])) ? $data['status'] : NULL;
+
+    $statement = $pdo->prepare(SQL_CHENGE_CAR_STATUS_BY_ID);
+    $res = $statement->execute(array(
+      ':id' => $id,
       ':status' => $status
     ));
     var_dump($res);
