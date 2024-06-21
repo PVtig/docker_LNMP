@@ -8,7 +8,7 @@ const SQL_GET_REPORT = '
     SELECT * FROM reports WHERE id = ?
 ';
 
-const SQL_GET_LAST_REPORT = '
+const SQL_GET_LAST_SERVICE_REPORT = '
     SELECT * FROM reports WHERE id IN (SELECT MAX(id) FROM reports WHERE type = ? AND car_id = ?)
 ';
 
